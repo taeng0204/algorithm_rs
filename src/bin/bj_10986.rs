@@ -1,4 +1,21 @@
-#[cfg(test)]
+use std::io::{self, Read};
+
+fn main() {
+    let mut input = String::new();
+    io::stdin().read_to_string(&mut input).unwrap();
+
+    let mut iter = input
+        .split_whitespace()
+        .map(|s| s.parse::<usize>().unwrap());
+
+    let n = iter.next().unwrap();
+    let m = iter.next().unwrap();
+
+    let numbers: Vec<usize> = iter.collect();
+
+    println!("{}", count_reminder_sum(n, m, &numbers));
+}
+
 fn count_reminder_sum(_: usize, m: usize, numbers: &[usize]) -> usize {
     let mut remain_count: Vec<usize> = vec![0; m];
     remain_count[0] = 1;
@@ -24,21 +41,3 @@ fn count_reminder_sum(_: usize, m: usize, numbers: &[usize]) -> usize {
 fn test() {
     assert_eq!(count_reminder_sum(5, 3, &[1, 2, 3, 1, 2]), 7);
 }
-
-// use std::io::{self, Read};
-
-// fn main() {
-//     let mut input = String::new();
-//     io::stdin().read_to_string(&mut input).unwrap();
-
-//     let mut iter = input
-//         .split_whitespace()
-//         .map(|s| s.parse::<usize>().unwrap());
-
-//     let n = iter.next().unwrap();
-//     let m = iter.next().unwrap();
-
-//     let numbers: Vec<usize> = iter.collect();
-
-//     println!("{}", count_reminder_sum(n, m, &numbers));
-// }
